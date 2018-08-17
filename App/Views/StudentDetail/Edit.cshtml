@@ -1,0 +1,44 @@
+﻿@model Student.Domain.Students
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+<hr />
+<div>
+    <div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="Id" />
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="RollNo"></label>
+                <input asp-for="RollNo" />
+            </div>
+            <div>
+                <label asp-for="DOB"></label>
+                <input asp-for="DOB" />
+            </div>
+            <div>
+                <label asp-for="Age"></label>
+                <input asp-for="Age" />
+            </div>
+            <div>
+                <label asp-for="StandardId"></label>
+                <input asp-for="StandardId" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Standard">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

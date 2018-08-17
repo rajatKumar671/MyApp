@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Student.Domain.Students>
+@{
+    ViewData["Title"] = "Student Detail Page";
+}
+
+<h1>Details</h1>
+<p><a> @Html.ActionLink("Create New", "Create") </a></p>
+<table class="table" style="width:70%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RollNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Standard)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+              @Html.DisplayFor(modelItem => item.RollNo)
+            </td>
+            <td>
+               <a href="@Url.Action("Details","StudentDetail", new { AddmissionNo=item.AddmissionNo,CourseDuration=item.CourseDuration})">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @item.Standard.StandardName
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+

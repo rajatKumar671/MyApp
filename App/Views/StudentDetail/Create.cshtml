@@ -1,0 +1,58 @@
+﻿@model Student.Domain.Students
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Student Detail</h4>
+<hr />
+<div>
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="RollNo"></label>
+                <input asp-for="RollNo" />
+            </div>
+            <div>
+                <label asp-for="DOB"></label>
+                <input type="date" asp-for="DOB" />
+            </div>
+            <div>
+                <label asp-for="Age"></label>
+                <input asp-for="Age" />
+            </div>
+            <div>
+                <label asp-for="AddmissionNo"></label>
+                <input asp-for="AddmissionNo" />
+            </div>
+            <div>
+                <label>Standard</label>
+                <select asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
+            </div>
+            <div>
+                <label asp-for="CourseDuration"></label>
+                <input asp-for="CourseDuration" />
+            </div>
+
+            <div>
+                <input type="submit" value="Create" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

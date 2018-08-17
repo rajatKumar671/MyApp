@@ -1,8 +1,8 @@
-C:\Users\admin\source\repos\MyApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.deps.json
-C:\Users\admin\source\repos\MyApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.dll
-C:\Users\admin\source\repos\MyApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.pdb
-C:\Users\admin\source\repos\MyApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.csproj.CoreCompileInputs.cache
-C:\Users\admin\source\repos\MyApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.AssemblyInfoInputs.cache
-C:\Users\admin\source\repos\MyApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.AssemblyInfo.cs
-C:\Users\admin\source\repos\MyApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.dll
-C:\Users\admin\source\repos\MyApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.pdb
+C:\Users\admin\source\repos\FirstApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.deps.json
+C:\Users\admin\source\repos\FirstApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.dll
+C:\Users\admin\source\repos\FirstApp\Student.Domain\bin\Debug\netcoreapp2.1\Student.Domain.pdb
+C:\Users\admin\source\repos\FirstApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\FirstApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.AssemblyInfoInputs.cache
+C:\Users\admin\source\repos\FirstApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.AssemblyInfo.cs
+C:\Users\admin\source\repos\FirstApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.dll
+C:\Users\admin\source\repos\FirstApp\Student.Domain\obj\Debug\netcoreapp2.1\Student.Domain.pdb

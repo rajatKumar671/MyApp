@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Student.Data;
 
@@ -16,51 +15,52 @@ namespace Student.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Student.Domain.Standard", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClassName");
+                    b.Property<string>("StandardName");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Standard");
+                    b.ToTable("standards");
                 });
 
-            modelBuilder.Entity("Student.Domain.StudentInfo", b =>
+            modelBuilder.Entity("Student.Domain.Students", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AddmissionNo");
 
                     b.Property<int>("Age");
 
-                    b.Property<string>("Branch");
+                    b.Property<int>("CourseDuration");
 
-                    b.Property<string>("DOB");
+                    b.Property<DateTime>("DOB");
 
                     b.Property<string>("Name");
 
                     b.Property<int>("RollNo");
 
-                    b.Property<int?>("StandardId");
+                    b.Property<int>("StandardId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StandardId");
 
-                    b.ToTable("studentInfos");
+                    b.ToTable("students");
                 });
 
-            modelBuilder.Entity("Student.Domain.StudentInfo", b =>
+            modelBuilder.Entity("Student.Domain.Students", b =>
                 {
                     b.HasOne("Student.Domain.Standard", "Standard")
-                        .WithMany()
-                        .HasForeignKey("StandardId");
+                        .WithMany("students")
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

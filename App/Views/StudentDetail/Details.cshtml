@@ -1,0 +1,28 @@
+﻿@model Student.Domain.Students
+
+@{
+    ViewData["Title"] = "Admission Details";
+}
+
+<table class="table" style="width:70%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AddmissionNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseDuration)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.AddmissionNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.CourseDuration)
+            </td>
+        </tr>
+    </tbody>
+</table>

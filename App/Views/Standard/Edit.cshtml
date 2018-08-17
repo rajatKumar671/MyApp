@@ -1,0 +1,28 @@
+﻿@model Student.Domain.Standard
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+<hr />
+<div>
+    <div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="Id" />
+            <div>
+                <label asp-for="StandardName"></label>
+                <input asp-for="StandardName"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Standard">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
