@@ -80,8 +80,9 @@ namespace App.Controllers
             return RedirectToAction(nameof(Student));
         }
 
-        public async Task<IActionResult>Details( Students student)
+        public IActionResult Details(Students student)
         {
+
             return View(student);
         }
     }

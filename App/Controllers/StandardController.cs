@@ -56,7 +56,7 @@ namespace App.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var stud = await _contexts.Standards.FindAsync(id);
             _contexts.Standards.Remove(stud);
