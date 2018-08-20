@@ -8,6 +8,6 @@ namespace Student.Domain
     {
         public int Id { get; set; }
         public string StandardName { get; set; } 
-        public List<Students> students { get; set; }
+        public List<Students> Students { get; set; }
     }
 }

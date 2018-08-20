@@ -16,7 +16,7 @@ namespace App.Controllers
         public async Task<IActionResult> Standard()
         {
             ViewBag.Title = "Standard";
-            return View(await _contexts.standards.ToListAsync());
+            return View(await _contexts.Standards.ToListAsync());
         }
         public IActionResult Create()
         {
@@ -43,7 +43,7 @@ namespace App.Controllers
                 return NotFound();
             }
 
-            var standard = await _contexts.standards
+            var standard = await _contexts.Standards
                 .FirstOrDefaultAsync(m => m.Id.ToString() == id);
             if (standard == null)
             {
@@ -58,8 +58,8 @@ namespace App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var stud = await _contexts.standards.FindAsync(id);
-            _contexts.standards.Remove(stud);
+            var stud = await _contexts.Standards.FindAsync(id);
+            _contexts.Standards.Remove(stud);
             await _contexts.SaveChangesAsync();
             return RedirectToAction(nameof(Standard));
         }

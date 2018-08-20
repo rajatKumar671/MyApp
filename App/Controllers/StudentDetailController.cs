@@ -19,14 +19,14 @@ namespace App.Controllers
         }
         public async Task<IActionResult> Student()
         {
-            var studentList = await _context.students.Include(x=>x.Standard).ToListAsync();
+            var studentList = await _context.Students.Include(x=>x.Standard).ToListAsync();
 
             return View(studentList);
         }
 
         public IActionResult Create()
         {
-            var standards = _context.standards.ToList();
+            var standards = _context.Standards.ToList();
             List<SelectListItem> standardsList = new List<SelectListItem>();
             foreach (var standard in standards)
             {
@@ -59,7 +59,7 @@ namespace App.Controllers
                 return NotFound();
             }
 
-            var student = await _context.students
+            var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.Id.ToString() == id);
             if (student == null)
             {
@@ -74,8 +74,8 @@ namespace App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var stud = await _context.students.FindAsync(id);
-            _context.students.Remove(stud);
+            var stud = await _context.Students.FindAsync(id);
+            _context.Students.Remove(stud);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Student));
         }

@@ -31,7 +31,7 @@
               @Html.DisplayFor(modelItem => item.RollNo)
             </td>
             <td>
-               <a href="@Url.Action("Details","StudentDetail", new { AddmissionNo=item.AddmissionNo,CourseDuration=item.CourseDuration})">@Html.DisplayFor(modelItem => item.Name)</a>
+               <a href="@Url.Action("Details","StudentDetail", new { AddmissionNo=item.AddmissionDate,CourseDuration=item.CourseDuration})">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
 
             <td>

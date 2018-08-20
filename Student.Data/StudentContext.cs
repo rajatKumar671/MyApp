@@ -9,12 +9,12 @@ namespace Student.Data
             : base(option)
         { }
 
-        public DbSet<Students> students { get; set; }
-        public DbSet<Standard> standards { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Standard> Standards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Students>().HasOne(p => p.Standard).WithMany(b => b.students);
+            modelBuilder.Entity<Students>().HasOne(p => p.Standard).WithMany(b => b.Students);
         }
 
     }

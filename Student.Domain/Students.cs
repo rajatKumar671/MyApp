@@ -11,7 +11,7 @@ namespace Student.Domain
         public int RollNo { get; set; }
         public DateTime DOB { get; set; }
         public int Age { get; set; }
-        public int AddmissionNo { get; set; }
+        public DateTime AddmissionDate { get; set; }
         public int CourseDuration { get; set; }
 
         public int StandardId { get; set; }
