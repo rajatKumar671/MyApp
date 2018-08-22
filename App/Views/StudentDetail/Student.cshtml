@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<Student.Domain.Students>
-@{
-    ViewData["Title"] = "Student Detail Page";
-}
 
-<h1>Details</h1>
-<p><a> @Html.ActionLink("Create New", "Create") </a></p>
- var 
-<table class="table" style="width:70%">
-    <thead>
+<h2>Students Details</h2>
+<b style="background-color:darkgrey; padding:7px"><a> @Html.ActionLink("Create New", "Create") </a></b>
+<br><br />
+
+<table class="table">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.RollNo)
@@ -30,42 +28,83 @@
             <th>
                 @Html.DisplayNameFor(model => model.CompeletionDate)
             </th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            var Difference = (item.CompeletionDate-item.AddmissionDate);
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RollNo)
-            </td>
-            <td data-toggle="tooltip" title="CourseDuration- @Difference" data-placement="bottom">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+            var Difference = (item.CompeletionDate - item.AddmissionDate).TotalDays;
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @item.Standard.StandardName
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddmissionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompeletionDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            <tr style="background-color:paleturquoise">
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNo)
+                </td>
+                <td>
+                    @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
+                    <a onclick="SetParentsInfo('@item.FatherName','@item.MotherName')" class="btn" data-toggle="modal" data-target="#myModal"> @Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+
+                <td>
+                    @item.DOB.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    <a data-toggle="popover" data-placement="bottom" title="CourseDuration" data-content="Days-@Difference" style="color:black;cursor:pointer;">@item.Standard.StandardName</a>
+                </td>
+                <td>
+                    @item.AddmissionDate.ToShortDateString()
+                </td>
+                <td>
+
+                    @item.CompeletionDate.ToShortDateString()
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+
         }
+
     </tbody>
 </table>
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Parents Info</h4>
+                </div>
+                <div class="modal-body">
+                    <b>Mother Name: </b><span id="mName"></span><br />
+                    <b>Father Name: </b><span id="fName"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    function SetParentsInfo(fName, mName) {
+        debugger;
+        $('#fName').html(fName);
+        $('#mName').html(mName);
+    }
+</script>
 
 

@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<Student.Domain.Standard>
 
 <h2>@ViewBag.Title</h2>
-
-<p><a @Html.ActionLink("Create New", "Create")></a></p>
+<b style="background-color:darkgrey; padding:7px"><a>@Html.ActionLink("Create New", "Create")</a></b>
+<hr>
+<div>
 <table class="table" style="width:70%">
-    <thead>
+    <thead style="background-color:lightgray">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.StandardName)
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
-    <tbody>
     <tbody>
         @foreach (var item in Model)
         {
@@ -27,3 +30,4 @@
         }
     </tbody>
 </table>
+</div>

@@ -9,45 +9,53 @@
 <h4>Student Detail</h4>
 <hr />
 <div>
-    <div>
+    <div style="border-radius:5px;background-color:#f2f2f2;padding:20px">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly"></div>
-            <div>
+            <div style="padding:5px">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" />
             </div>
-            <div>
+            <div style="padding:5px">
+                <label asp-for="FatherName"></label>
+                <input asp-for="FatherName" />
+            </div>
+            <div style="padding:5px">
+                <label asp-for="MotherName"></label>
+                <input asp-for="MotherName" />
+            </div>
+            <div style="padding:5px">
                 <label asp-for="RollNo"></label>
                 <input asp-for="RollNo" />
             </div>
-            <div>
+            <div style="padding:5px">
                 <label asp-for="DOB"></label>
                 <input type="date" asp-for="DOB" />
             </div>
-            <div>
+            <div style="padding:5px">
                 <label asp-for="Age"></label>
                 <input asp-for="Age" />
             </div>
-            <div>
+            <div style="padding:5px">
                 <label asp-for="AddmissionDate"></label>
                 <input type="date" asp-for="AddmissionDate" />
             </div>
-            <div>
+            <div style="padding:5px">
                 <label asp-for="CompeletionDate"></label>
                 <input type="date" asp-for="CompeletionDate" />
             </div>
-            <div>
+            <div style="padding:5px">
                 <label>Standard</label>
                 <select asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
             </div>
-            <div>
+            <div style="padding:9px">
                 <input type="submit" value="Create" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
+<br/>
+<div style="background-color:">
     <a asp-action="Student">Back to List</a>
 </div>
 

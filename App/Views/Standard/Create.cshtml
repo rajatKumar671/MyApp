@@ -10,20 +10,20 @@
 <hr />
 <div>
     <div>
-        <form asp-action="Create">
+        <form asp-action="Create"> 
             <div asp-validation-summary="ModelOnly"></div>
-            <div>
+            <div style="background-color:lightsteelblue;padding:9px">
                 <label asp-for="StandardName"></label>
                 <input asp-for="StandardName" />
             </div>
-            <div>
+            <div style="padding:9px">
                 <input type="submit" value="Create" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+<div style="padding:8px">
     <a asp-action="Standard">Back to List</a>
 </div>
 

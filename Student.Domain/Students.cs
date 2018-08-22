@@ -13,6 +13,8 @@ namespace Student.Domain
         public int Age { get; set; }
         public DateTime AddmissionDate { get; set; }
         public DateTime CompeletionDate { get; set; }
+        public string FatherName { get; set; }
+        public string MotherName { get; set; }
 
         public int StandardId { get; set; }
         public Standard Standard { get; set; }
