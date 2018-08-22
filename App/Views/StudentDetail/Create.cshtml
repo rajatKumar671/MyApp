@@ -33,14 +33,13 @@
                 <input type="date" asp-for="AddmissionDate" />
             </div>
             <div>
+                <label asp-for="CompeletionDate"></label>
+                <input type="date" asp-for="CompeletionDate" />
+            </div>
+            <div>
                 <label>Standard</label>
                 <select asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
             </div>
-            <div>
-                <label asp-for="CourseDuration"></label>
-                <input asp-for="CourseDuration" />
-            </div>
-
             <div>
                 <input type="submit" value="Create" />
             </div>
@@ -49,7 +48,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Student">Back to List</a>
 </div>
 
 @section Scripts {

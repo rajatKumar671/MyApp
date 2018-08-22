@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student.Data;
@@ -62,6 +64,32 @@ namespace App.Controllers
             _contexts.Standards.Remove(stud);
             await _contexts.SaveChangesAsync();
             return RedirectToAction(nameof(Standard));
+        }
+        public ActionResult Edit(int id)
+        {
+            using (_contexts)
+            {
+                return View(_contexts.Standards.Where(x => x.Id == id).FirstOrDefault());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, Standard standards)
+        {
+            try
+            {
+                using (_contexts)
+                {
+                    _contexts.Entry(standards).State = EntityState.Modified;
+                    _contexts.SaveChanges();
+
+                }
+                return RedirectToAction("Standard");
+            }
+            catch(Exception ex)
+            {
+                return View();
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Student.Domain
         public DateTime DOB { get; set; }
         public int Age { get; set; }
         public DateTime AddmissionDate { get; set; }
-        public int CourseDuration { get; set; }
+        public DateTime CompeletionDate { get; set; }
 
         public int StandardId { get; set; }
         public Standard Standard { get; set; }
