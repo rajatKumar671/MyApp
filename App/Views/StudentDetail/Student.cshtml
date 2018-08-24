@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Student.Domain.Students>
 
 <h2>Students Details</h2>
-<b style="background-color:darkgrey; padding:7px"><a> @Html.ActionLink("Create New", "Create") </a></b>
-<br><br />
-
+<hr>
+<b class="btn-block"style="padding:5px"><a> @Html.ActionLink("Create New", "Create") </a></b>
+<hr>
 <table class="table">
     <thead class="table-dark">
         <tr>
@@ -35,13 +35,16 @@
         @foreach (var item in Model)
         {
             var Difference = (item.CompeletionDate - item.AddmissionDate).TotalDays;
+            var Years = Math.Truncate(Difference / 365);
+            int Months = (int)Math.Round(Difference % 365)/30;
+            var Days = Math.Truncate(Difference % 365)%30;
+            
 
             <tr style="background-color:paleturquoise">
                 <td>
                     @Html.DisplayFor(modelItem => item.RollNo)
                 </td>
                 <td>
-                    @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
                     <a onclick="SetParentsInfo('@item.FatherName','@item.MotherName')" class="btn" data-toggle="modal" data-target="#myModal"> @Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
 
@@ -52,7 +55,7 @@
                     @Html.DisplayFor(modelItem => item.Age)
                 </td>
                 <td>
-                    <a data-toggle="popover" data-placement="bottom" title="CourseDuration" data-content="Days-@Difference" style="color:black;cursor:pointer;">@item.Standard.StandardName</a>
+                    <a data-toggle="popover" data-placement="bottom" title="CourseDuration" data-content="Years:@Years Months:@Months Days:@Days " style="color:black;cursor:pointer;">@item.Standard.StandardName</a>
                 </td>
                 <td>
                     @item.AddmissionDate.ToShortDateString()
@@ -73,10 +76,10 @@
     </tbody>
 </table>
 <div class="container">
-    <!-- Modal -->
+
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
+         
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>

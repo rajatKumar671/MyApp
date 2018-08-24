@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static App.Models.StudentInputModel;
 
 namespace App.Controllers
 {
@@ -43,15 +44,25 @@ namespace App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Students studentDetail)
+        public async Task<IActionResult> Create(StudentsInputDto studentDetail)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(studentDetail);
+                Students ob = new Students();
+                ob.Name = studentDetail.Name;
+                ob.FatherName = studentDetail.FatherName;
+                ob.MotherName = studentDetail.MotherName;
+                ob.RollNo = studentDetail.RollNo;
+                ob.AddmissionDate = studentDetail.AddmissionDate;
+                ob.CompeletionDate = studentDetail.CompeletionDate;
+                ob.Standard = studentDetail.Standard;
+                ob.Age = studentDetail.Age;
+                ob.DOB = studentDetail.DOB;
+                _context.Add(ob);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Student));
             }
-            return View(studentDetail);
+            return View();
         }
         public async Task<IActionResult> Delete(string id)
         {
@@ -73,7 +84,7 @@ namespace App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var stud = await _context.Students.FindAsync(id);
             _context.Students.Remove(stud);

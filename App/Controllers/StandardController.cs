@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student.Data;
 using Student.Domain;
+using static App.Models.StudentInputModel;
 
 namespace App.Controllers
 {
@@ -27,15 +29,18 @@ namespace App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Standard standard)
+        public async Task<IActionResult> Create(StandardInputDto standard)
         {
+
             if (ModelState.IsValid)
             {
-                _contexts.Add(standard);
+                Standard ob = new Standard();
+                ob.StandardName = standard.StandardName;
+                _contexts.Add(ob);
                 await _contexts.SaveChangesAsync();
                 return RedirectToAction(nameof(Standard));
             }
-            return View(standard);
+            return View();
         }
         
         public async Task<IActionResult> Delete(string id)
@@ -92,4 +97,5 @@ namespace App.Controllers
             }
         }
     }
+
 }

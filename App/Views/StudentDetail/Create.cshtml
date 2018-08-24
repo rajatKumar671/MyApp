@@ -1,61 +1,57 @@
 ﻿@model Student.Domain.Students
 
-@{
-    ViewData["Title"] = "Create";
-}
-
 <h2>Create</h2>
 
 <h4>Student Detail</h4>
 <hr />
 <div>
-    <div style="border-radius:5px;background-color:#f2f2f2;padding:20px">
+    <div style="border-radius:8px;background-color:#f2f2f2;padding:20px">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly"></div>
-            <div style="padding:5px">
-                <label asp-for="Name"></label>
+            <div asp-validation-summary="All"></div>
+            <div class="form-group row">
+                <label asp-for="Name"class="col-sm-2 col-form-label">Name:</label>
                 <input asp-for="Name" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="FatherName"></label>
+            <div class="form-group row">
+                <label asp-for="FatherName"class="col-sm-2 col-form-label"> Father Name:</label>
                 <input asp-for="FatherName" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="MotherName"></label>
+            <div class="form-group row">
+                <label asp-for="MotherName"class="col-sm-2 col-form-label"> Mother Name:</label>
                 <input asp-for="MotherName" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="RollNo"></label>
+            <div class="form-group row">
+                <label asp-for="RollNo"class="col-sm-2 col-form-label">Roll No:</label>
                 <input asp-for="RollNo" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="DOB"></label>
+            <div class="form-group row">
+                <label asp-for="DOB"class="col-sm-2 col-form-label"> Date OF Birth:</label>
                 <input type="date" asp-for="DOB" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="Age"></label>
+            <div class="form-group row">
+                <label asp-for="Age"class="col-sm-2 col-form-label">Age:</label>
                 <input asp-for="Age" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="AddmissionDate"></label>
+            <div class="form-group row">
+                <label asp-for="AddmissionDate"class="col-sm-2 col-form-label">Addmission Date:</label>
                 <input type="date" asp-for="AddmissionDate" />
             </div>
-            <div style="padding:5px">
-                <label asp-for="CompeletionDate"></label>
+            <div class="form-group row">
+                <label asp-for="CompeletionDate"class="col-sm-2 col-form-label">Compeletion Date:</label>
                 <input type="date" asp-for="CompeletionDate" />
             </div>
-            <div style="padding:5px">
-                <label>Standard</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Standard:</label>
                 <select asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
             </div>
-            <div style="padding:9px">
-                <input type="submit" value="Create" />
+            <div>
+                <input type="submit" value="Create"class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 <br/>
-<div style="background-color:">
+<div>
     <a asp-action="Student">Back to List</a>
 </div>
 

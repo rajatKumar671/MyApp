@@ -14,7 +14,7 @@ namespace Student.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StandardName = table.Column<string>(nullable: true)
+                    StandardName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

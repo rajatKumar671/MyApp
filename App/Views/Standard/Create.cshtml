@@ -12,12 +12,12 @@
     <div>
         <form asp-action="Create"> 
             <div asp-validation-summary="ModelOnly"></div>
-            <div style="background-color:lightsteelblue;padding:9px">
+            <div class="vali" style="background-color:lightsteelblue;padding:9px">
                 <label asp-for="StandardName"></label>
                 <input asp-for="StandardName" />
             </div>
             <div style="padding:9px">
-                <input type="submit" value="Create" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>

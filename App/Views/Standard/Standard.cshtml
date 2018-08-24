@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Student.Domain.Standard>
 
 <h2>@ViewBag.Title</h2>
-<b style="background-color:darkgrey; padding:7px"><a>@Html.ActionLink("Create New", "Create")</a></b>
+<b class="btn-block"style="padding:5px"><a>@Html.ActionLink("Create New", "Create")</a></b>
 <hr>
 <div>
 <table class="table" style="width:70%">
-    <thead style="background-color:lightgray">
+    <thead style="background-color:green;color:white">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.StandardName)
@@ -15,7 +15,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color:darkseagreen">
         @foreach (var item in Model)
         {
             <tr>
