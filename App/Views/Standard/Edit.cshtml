@@ -9,18 +9,18 @@
 <div>
     <div style="border-radius:8px;background-color:#f2f2f2;padding:20px">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly"></div>
+            <div asp-validation-summary="All"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group row">
                 <label asp-for="StandardName">Standard Name:</label>
                 <input asp-for="StandardName" />
             </div>
-           
-           <div>
-            <input type="submit" value="Edit"class="btn btn-default" />
+
+            <div>
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 
 <div>

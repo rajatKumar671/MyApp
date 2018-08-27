@@ -34,15 +34,15 @@ namespace App.Controllers
 
             if (ModelState.IsValid)
             {
-                Standard ob = new Standard();
-                ob.StandardName = standard.StandardName;
-                _contexts.Add(ob);
+                Standard standards= new Standard();
+                standards.StandardName = standard.StandardName;
+                _contexts.Add(standards);
                 await _contexts.SaveChangesAsync();
                 return RedirectToAction(nameof(Standard));
             }
             return View();
         }
-        
+
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -60,7 +60,7 @@ namespace App.Controllers
             return View(standard);
         }
 
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -79,23 +79,19 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Standard standards)
+        public async Task<IActionResult> Edit(int id, StandardInputDto standard)
         {
-            try
+            if (ModelState.IsValid)
             {
                 using (_contexts)
                 {
-                    _contexts.Entry(standards).State = EntityState.Modified;
+                    var standart = _contexts.Standards.Where(_ => _.Id == id).FirstOrDefault();
+                    standart.StandardName = standard.StandardName;
                     _contexts.SaveChanges();
-
+                    return RedirectToAction("Standard");
                 }
-                return RedirectToAction("Standard");
             }
-            catch(Exception ex)
-            {
-                return View();
-            }
+            return View();
         }
     }
-
 }

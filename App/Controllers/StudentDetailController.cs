@@ -43,63 +43,29 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(StudentsInputDto studentDetail)
         {
             if (ModelState.IsValid)
             {
-                Students ob = new Students();
-                ob.Name = studentDetail.Name;
-                ob.FatherName = studentDetail.FatherName;
-                ob.MotherName = studentDetail.MotherName;
-                ob.RollNo = studentDetail.RollNo;
-                ob.AddmissionDate = studentDetail.AddmissionDate;
-                ob.CompeletionDate = studentDetail.CompeletionDate;
-                ob.Standard = studentDetail.Standard;
-                ob.Age = studentDetail.Age;
-                ob.DOB = studentDetail.DOB;
-                _context.Add(ob);
+                Students student = new Students
+                {
+                    Name = studentDetail.Name,
+                    FatherName = studentDetail.FatherName,
+                    MotherName = studentDetail.MotherName,
+                    RollNo = studentDetail.RollNo,
+                    AddmissionDate = studentDetail.AddmissionDate,
+                    CompeletionDate = studentDetail.CompeletionDate,
+                    Standard = studentDetail.Standard,
+                    Age = studentDetail.Age,
+                    DOB = studentDetail.DOB
+                };
+                _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Student));
             }
             return View();
         }
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id.ToString() == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return View(student);
-        }
-
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var stud = await _context.Students.FindAsync(id);
-            _context.Students.Remove(stud);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Student));
-        }
-
-        public IActionResult Details(Students student)
-        {
-
-            return View(student);
-
-        }
-
-        public async Task<ActionResult> Edit(int? id)
+         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -112,21 +78,21 @@ namespace App.Controllers
                 standardsList.Add(new SelectListItem
                 {
                     Text = standard.StandardName,
-                    Value = standard.Id.ToString()
+                    Value = standard.Id.ToString() 
                 });
             }
-            ViewBag.StandardList = standardsList;
+           
             var studentDetail = await _context.Students.FindAsync(id);
             if (studentDetail == null)
             {
                 return NotFound();
             }
+            ViewBag.StandardList = standardsList;
             return View(studentDetail);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,Students students)
+        public async Task<IActionResult> Edit(int id, StudentsInputDto students)
         {
             if (id != students.Id)
             {
@@ -137,6 +103,18 @@ namespace App.Controllers
             {
                 try
                 {
+                    var student = _context.Students.Where(p => p.Id == id).FirstOrDefault();
+                    students.RollNo = student.RollNo;
+                    students.Name = student.Name;
+                    students.FatherName = student.FatherName; 
+                    students.MotherName = student.MotherName;
+                    students.DOB = student.DOB;
+                    students.Age = student.Age;
+                    students.Standard = student.Standard;
+                    students.AddmissionDate = student.AddmissionDate;
+                    students.CompeletionDate = student.CompeletionDate;
+                    
+                    
                     _context.Update(students);
                     await _context.SaveChangesAsync();
                 }
@@ -153,7 +131,49 @@ namespace App.Controllers
                 }
                 return RedirectToAction(nameof(Student));
             }
-            return View(students);
+            return View();
+        }
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var standards = _context.Standards.ToList();
+            List<SelectListItem> standardsList = new List<SelectListItem>();
+            foreach (var standard in standards)
+            {
+                standardsList.Add(new SelectListItem
+                {
+                    Text = standard.StandardName,
+                    Value = standard.Id.ToString()
+                });
+            }
+            var student = await _context.Students
+                .FirstOrDefaultAsync(m => m.Id.ToString() == id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            ViewBag.StandardList = standardsList;
+            return View(student);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var stud = await _context.Students.FindAsync(id);
+            _context.Students.Remove(stud);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Student));
+        }
+
+        public IActionResult Details(Students student)
+        {
+
+            return View(student);
+
         }
 
         private bool StudentsExists(int id)

@@ -64,7 +64,8 @@
             <label asp-for="Standard">Standard:</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Standard)
+            @*Html.DisplayFor(model => model.Standard)*@
+            <select disabled="true" asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
         </dd>
 
     </dl>
