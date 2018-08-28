@@ -1,50 +1,51 @@
 ﻿@model Student.Domain.Students
 
-<h2>Edit</h2>
+<h2>Create</h2>
+
+<h4>Student Detail</h4>
 <hr />
 <div>
     <div style="border-radius:8px;background-color:#f2f2f2;padding:20px">
-        <form asp-action="Edit">
+        <form asp-action="CreateEdit">
             <div asp-validation-summary="All"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label"> Roll No:</label>
-                <input type="text" asp-for="RollNo" />
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"> Name:</label>
+                <label asp-for="Name" class="col-sm-2 col-form-label">Name:</label>
                 <input asp-for="Name" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Father Name:</label>
+                <label asp-for="FatherName" class="col-sm-2 col-form-label"> Father Name:</label>
                 <input asp-for="FatherName" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Mother Name:</label>
+                <label asp-for="MotherName" class="col-sm-2 col-form-label"> Mother Name:</label>
                 <input asp-for="MotherName" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Date Of Birth:</label>
+                <label asp-for="RollNo" class="col-sm-2 col-form-label">Roll No:</label>
+                <input asp-for="RollNo" />
+            </div>
+            <div class="form-group row">
+                <label asp-for="DOB" class="col-sm-2 col-form-label"> Date OF Birth:</label>
                 <input type="date" asp-for="DOB" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Age:</label>
+                <label asp-for="Age" class="col-sm-2 col-form-label">Age:</label>
                 <input asp-for="Age" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Addmission No:</label>
+                <label asp-for="AddmissionDate" class="col-sm-2 col-form-label">Addmission Date:</label>
                 <input type="date" asp-for="AddmissionDate" />
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Compeletion Date:</label>
+                <label asp-for="CompeletionDate" class="col-sm-2 col-form-label">Compeletion Date:</label>
                 <input type="date" asp-for="CompeletionDate" />
             </div>
             <div class="form-group row">
-                <label>Standard:</label>
+                <label class="col-sm-2 col-form-label">Standard:</label>
                 <select asp-for="StandardId" asp-items="@ViewBag.StandardList"></select>
             </div>
             <div>
-                <input type="submit" value="Edit" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -53,5 +54,3 @@
 <div>
     <a asp-action="Student">Back to List</a>
 </div>
-
-

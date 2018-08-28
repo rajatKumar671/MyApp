@@ -2,31 +2,31 @@
 
 <h2>Students Details</h2>
 <hr>
-<b class="btn-block"style="padding:5px"><a> @Html.ActionLink("Create New", "Create") </a></b>
+<b class="btn-block"style="padding:5px"><a> @Html.ActionLink("Create New", "CreateEdit") </a></b>
 <hr>
 <table class="table">
     <thead class="table-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RollNo)
+                <label>Name</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <label>Roll No</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DOB)
+                <label>Date Of Birth</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Age)
+                <label>Age</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Standard)
+                <label>Course</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AddmissionDate)
+                <label>Addmission Date</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompeletionDate)
+                <label>Compeletion Date</label>
             </th>
             <th>Action</th>
         </tr>
@@ -38,14 +38,12 @@
             var Years = Math.Truncate(Difference / 365);
             int Months = (int)Math.Round(Difference % 365)/30;
             var Days = Math.Truncate(Difference % 365)%30;
-            
-
             <tr style="background-color:paleturquoise">
                 <td>
-                    @Html.DisplayFor(modelItem => item.RollNo)
+                    <a onclick="SetParentsInfo('@item.FatherName','@item.MotherName')" class="btn" data-toggle="modal" data-target="#myModal"> @Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 <td>
-                    <a onclick="SetParentsInfo('@item.FatherName','@item.MotherName')" class="btn" data-toggle="modal" data-target="#myModal"> @Html.DisplayFor(modelItem => item.Name)</a>
+                    @Html.DisplayFor(modelItem => item.RollNo)
                 </td>
 
                 <td>
@@ -61,42 +59,35 @@
                     @item.AddmissionDate.ToShortDateString()
                 </td>
                 <td>
-
                     @item.CompeletionDate.ToShortDateString()
                 </td>
-
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="CreateEdit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-
         }
-
     </tbody>
 </table>
 <div class="container">
-
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-         
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Parents Info</h4>
                 </div>
                 <div class="modal-body">
-                    <b>Mother Name: </b><span id="mName"></span><br />
                     <b>Father Name: </b><span id="fName"></span>
+                    <br />
+                    <b>Mother Name: </b><span id="mName"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
 
 <script>
@@ -104,10 +95,8 @@
         $('[data-toggle="popover"]').popover();
     });
     function SetParentsInfo(fName, mName) {
-        debugger;
         $('#fName').html(fName);
         $('#mName').html(mName);
     }
 </script>
-
-
+ 

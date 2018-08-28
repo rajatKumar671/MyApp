@@ -19,11 +19,12 @@ namespace App.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Student()
+        public async Task<IActionResult> Student(string Order)
         {
             var studentList = await _context.Students.Include(x => x.Standard).ToListAsync();
 
-            return View(studentList);
+            
+            return View(studentList.OrderBy(s => s.Name));
         }
 
         public IActionResult Create()
@@ -39,10 +40,10 @@ namespace App.Controllers
                 });
             }
             ViewBag.StandardList = standardsList;
-            return View();
+            return View("CreateEdit",new Students());
         }
 
-        [HttpPost]
+      /*   [HttpPost]
         public async Task<IActionResult> Create(StudentsInputDto studentDetail)
         {
             if (ModelState.IsValid)
@@ -50,21 +51,22 @@ namespace App.Controllers
                 Students student = new Students
                 {
                     Name = studentDetail.Name,
+                    RollNo = studentDetail.RollNo,
                     FatherName = studentDetail.FatherName,
                     MotherName = studentDetail.MotherName,
-                    RollNo = studentDetail.RollNo,
+                    Age = studentDetail.Age,
+                    DOB = studentDetail.DOB,
                     AddmissionDate = studentDetail.AddmissionDate,
                     CompeletionDate = studentDetail.CompeletionDate,
-                    Standard = studentDetail.Standard,
-                    Age = studentDetail.Age,
-                    DOB = studentDetail.DOB
+                    StandardId=studentDetail.StandardId,
+                    Standard = studentDetail.Standard
                 };
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Student));
             }
             return View();
-        }
+        }*/
          public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,31 +93,130 @@ namespace App.Controllers
             return View(studentDetail);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, StudentsInputDto students)
-        {
-            if (id != students.Id)
-            {
-                return NotFound();
-            }
+        /*        [HttpPost]
+                public async Task<IActionResult> Edit(int id, StudentsInputDto students)
+                {
+                    if (id != students.Id)
+                    {
+                        return NotFound();
+                    }
 
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            var student = _context.Students.Where(p => p.Id == id).FirstOrDefault();
+                            student.RollNo=students.RollNo;
+                            student.Name=students.Name;
+                            student.FatherName=students.FatherName; 
+                            student.MotherName=students.MotherName;
+                            student.DOB=students.DOB;
+                            student.Age=students.Age;
+                            student.Standard=students.Standard;
+                            student.AddmissionDate= students.AddmissionDate;
+                            student.CompeletionDate= students.CompeletionDate;
+
+
+                            _context.Update(student);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!StudentsExists(students.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Student));
+                    }
+                    return View();
+                }*/
+        public async Task<ActionResult> CreateEdit(int? id)
+        {
+            if (id == 0)
+            {
+                var standards = _context.Standards.ToList();
+                List<SelectListItem> standardsList = new List<SelectListItem>();
+                foreach (var standard in standards)
+                {
+                    standardsList.Add(new SelectListItem
+                    {
+                        Text = standard.StandardName,
+                        Value = standard.Id.ToString()
+                    });
+                }
+                ViewBag.StandardList = standardsList;
+                return View("CreateEdit", new Students());
+            }
+            if (id != 0)
+            {
+                var standards = _context.Standards.ToList();
+                List<SelectListItem> standardsList = new List<SelectListItem>();
+                foreach (var standard in standards)
+                {
+                    standardsList.Add(new SelectListItem
+                    {
+                        Text = standard.StandardName,
+                        Value = standard.Id.ToString()
+                    });
+                }
+
+                var studentDetail = await _context.Students.FindAsync(1);
+                if (studentDetail == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.StandardList = standardsList;
+                return View(studentDetail);
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult>CreateEdit(int id,Students students)
+        {
             if (ModelState.IsValid)
+            {
+                if (students.Id <= 0)
+                {
+                    Students student = new Students
+                    {
+                        Name = students.Name,
+                        RollNo = students.RollNo,
+                        FatherName = students.FatherName,
+                        MotherName = students.MotherName,
+                        Age = students.Age,
+                        DOB = students.DOB,
+                        AddmissionDate = students.AddmissionDate,
+                        CompeletionDate = students.CompeletionDate,
+                        StandardId = students.StandardId,
+                        Standard = students.Standard
+                    };
+                    _context.Add(student);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Student));
+                }
+            }
+            else
             {
                 try
                 {
                     var student = _context.Students.Where(p => p.Id == id).FirstOrDefault();
-                    students.RollNo = student.RollNo;
-                    students.Name = student.Name;
-                    students.FatherName = student.FatherName; 
-                    students.MotherName = student.MotherName;
-                    students.DOB = student.DOB;
-                    students.Age = student.Age;
-                    students.Standard = student.Standard;
-                    students.AddmissionDate = student.AddmissionDate;
-                    students.CompeletionDate = student.CompeletionDate;
-                    
-                    
-                    _context.Update(students);
+                    student.RollNo = students.RollNo;
+                    student.Name = students.Name;
+                    student.FatherName = students.FatherName;
+                    student.MotherName = students.MotherName;
+                    student.DOB = students.DOB;
+                    student.Age = students.Age;
+                    student.Standard = students.Standard;
+                    student.AddmissionDate = students.AddmissionDate;
+                    student.CompeletionDate = students.CompeletionDate;
+
+
+                    _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -132,7 +233,9 @@ namespace App.Controllers
                 return RedirectToAction(nameof(Student));
             }
             return View();
+
         }
+            
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -182,5 +285,4 @@ namespace App.Controllers
         }
     }
         
-    
 }
