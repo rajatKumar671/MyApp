@@ -23,8 +23,8 @@ namespace App.Controllers
         public async Task<IActionResult> Standard()
         {
             ViewBag.Title = "Standard";
-            var a = await _contexts.Standards.ToListAsync();
-            return View(await _contexts.Standards.ToListAsync());
+            var standardlist = await _contexts.Standards.ToListAsync();
+            return View(standardlist.OrderBy(s=>s.StandardName));
         }
         public IActionResult Create()
         {
@@ -32,16 +32,22 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(StandardInputDto standard)
         {
 
             if (ModelState.IsValid)
             {
-                var standards = _mapper.Map<Standard>(standard);
-                _contexts.Add(standards);
-                await _contexts.SaveChangesAsync();
-                return RedirectToAction(nameof(Standard));
+                try
+                {
+                    var standards = _mapper.Map<Standard>(standard);
+                    _contexts.Add(standards);
+                    await _contexts.SaveChangesAsync();
+                    return RedirectToAction(nameof(Standard));
+                }
+                catch(Exception ex)
+                {
+                    return View(ex.Message);
+                }
             }
             return View();
         }
@@ -64,14 +70,18 @@ namespace App.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            var stud = await _contexts.Standards.FindAsync(id);
-            _contexts.Standards.Remove(stud);
-            await _contexts.SaveChangesAsync();
-            return RedirectToAction(nameof(Standard));
+            var standard = await _contexts.Standards.FindAsync(id);
+            if (standard != null)
+            {
+                _contexts.Standards.Remove(standard);
+                await _contexts.SaveChangesAsync();
+                return RedirectToAction(nameof(Standard));
+            }
+            ModelState.AddModelError("", "Standard not found");
+            return View(ModelState);
         }
         public ActionResult Edit(int id)
         {
@@ -88,10 +98,15 @@ namespace App.Controllers
             {
                 using (_contexts)
                 {
-                    var standart = _contexts.Standards.Where(_ => _.Id == id).FirstOrDefault();
-                    standart.StandardName = standard.StandardName;
-                     _contexts.SaveChanges();
-                    return RedirectToAction("Standard");
+                    var standards = _contexts.Standards.Where(_ => _.Id == id).FirstOrDefault();
+                    if (standards != null)
+                    {
+                       standards.StandardName = standard.StandardName;
+                        await _contexts.SaveChangesAsync();
+                        return RedirectToAction("Standard");
+                    }
+                    ModelState.AddModelError("", "Standard not found");
+                    return View(ModelState);
                 }
             }
             return View();
