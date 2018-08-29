@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Student.Data;
 using Microsoft.EntityFrameworkCore;
+using App.Models;
+using AutoMapper;
 
 namespace App
 {
@@ -25,8 +27,9 @@ namespace App
                 options => options.UseMySql(Configuration.GetConnectionString("StudentConnection")));
 
 
-
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

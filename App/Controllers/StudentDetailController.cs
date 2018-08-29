@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Student.Data;
@@ -13,12 +15,15 @@ namespace App.Controllers
 {
     public class StudentDetailController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly StudentContext _context;
 
-        public StudentDetailController(StudentContext context)
+        public StudentDetailController(IMapper mapper, StudentContext context)
         {
+            _mapper = mapper;
             _context = context;
         }
+        
         public async Task<IActionResult> Student(string Order)
         {
             var studentList = await _context.Students.Include(x => x.Standard).ToListAsync();
@@ -66,7 +71,7 @@ namespace App.Controllers
                 return RedirectToAction(nameof(Student));
             }
             return View();
-        }*/
+        }
          public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,7 +98,7 @@ namespace App.Controllers
             return View(studentDetail);
         }
 
-        /*        [HttpPost]
+               [HttpPost]
                 public async Task<IActionResult> Edit(int id, StudentsInputDto students)
                 {
                     if (id != students.Id)
@@ -137,7 +142,7 @@ namespace App.Controllers
                 }*/
         public async Task<ActionResult> CreateEdit(int? id)
         {
-            if (id == 0)
+            if (id == null)
             {
                 var standards = _context.Standards.ToList();
                 List<SelectListItem> standardsList = new List<SelectListItem>();
@@ -150,9 +155,9 @@ namespace App.Controllers
                     });
                 }
                 ViewBag.StandardList = standardsList;
-                return View("CreateEdit", new Students());
+                return View();
             }
-            if (id != 0)
+            if (id != null)
             {
                 var standards = _context.Standards.ToList();
                 List<SelectListItem> standardsList = new List<SelectListItem>();
@@ -165,7 +170,7 @@ namespace App.Controllers
                     });
                 }
 
-                var studentDetail = await _context.Students.FindAsync(1);
+                var studentDetail = await _context.Students.FindAsync(id);
                 if (studentDetail == null)
                 {
                     return NotFound();
@@ -176,13 +181,13 @@ namespace App.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult>CreateEdit(int id,Students students)
+        public async Task<IActionResult>CreateEdit(int? id, StudentsInputDto students)
         {
             if (ModelState.IsValid)
             {
-                if (students.Id <= 0)
+                if (id == null)
                 {
-                    Students student = new Students
+                    /*Students student = new Students
                     {
                         Name = students.Name,
                         RollNo = students.RollNo,
@@ -194,28 +199,29 @@ namespace App.Controllers
                         CompeletionDate = students.CompeletionDate,
                         StandardId = students.StandardId,
                         Standard = students.Standard
-                    };
+                    };*/
+                    var student = _mapper.Map<Students>(students);
                     _context.Add(student);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Student));
                 }
             }
-            else
+            if(id!=null)
             {
                 try
                 {
-                    var student = _context.Students.Where(p => p.Id == id).FirstOrDefault();
-                    student.RollNo = students.RollNo;
-                    student.Name = students.Name;
-                    student.FatherName = students.FatherName;
-                    student.MotherName = students.MotherName;
-                    student.DOB = students.DOB;
-                    student.Age = students.Age;
-                    student.Standard = students.Standard;
-                    student.AddmissionDate = students.AddmissionDate;
-                    student.CompeletionDate = students.CompeletionDate;
+                    /* var student = _context.Students.Where(p => p.Id == id).FirstOrDefault();
+                     student.RollNo = students.RollNo;
+                     student.Name = students.Name;
+                     student.FatherName = students.FatherName;
+                     student.MotherName = students.MotherName;
+                     student.DOB = students.DOB;
+                     student.Age = students.Age;
+                     student.Standard = students.Standard;
+                     student.AddmissionDate = students.AddmissionDate;
+                     student.CompeletionDate = students.CompeletionDate;*/
 
-
+                    var student = _mapper.Map<Students>(students);
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
@@ -235,7 +241,7 @@ namespace App.Controllers
             return View();
 
         }
-            
+        
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)

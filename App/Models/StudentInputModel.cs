@@ -4,19 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace App.Models
 {
-    public class StudentInputModel:IValidatableObject
+    public class StudentInputModel
     {
-        public class StandardInputDto
-        {
-            public int Id { get; set; }
-
-            [Required]
-            public string StandardName { get; set; }
-        }
         public class StudentsInputDto
         {
             [Required]
             public int Id { get; set; }
+            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "Only characters are allowed in Name!")]
             [Required]
             public string Name { get; set; }
             [Required]
@@ -29,8 +23,10 @@ namespace App.Models
             public DateTime AddmissionDate { get; set; }
             [Required]
             public DateTime CompeletionDate { get; set; }
+            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "Only characters are allowed in Father Name!")]
             [Required]
             public string FatherName { get; set; }
+            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "Only characters are allowed in Mother Name!")]
             [Required]
             public string MotherName { get; set; }
 
@@ -38,9 +34,6 @@ namespace App.Models
             public Standard Standard { get; set; }
 
         }
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

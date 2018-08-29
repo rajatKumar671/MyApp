@@ -2,24 +2,28 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student.Data;
 using Student.Domain;
-using static App.Models.StudentInputModel;
+using static App.StandardInputModel;
 
 namespace App.Controllers
 {
     public class StandardController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly StudentContext _contexts;
-        public StandardController(StudentContext context)
+        public StandardController(StudentContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _contexts = context;
         }
         public async Task<IActionResult> Standard()
         {
             ViewBag.Title = "Standard";
+            var a = await _contexts.Standards.ToListAsync();
             return View(await _contexts.Standards.ToListAsync());
         }
         public IActionResult Create()
@@ -34,8 +38,7 @@ namespace App.Controllers
 
             if (ModelState.IsValid)
             {
-                Standard standards= new Standard();
-                standards.StandardName = standard.StandardName;
+                var standards = _mapper.Map<Standard>(standard);
                 _contexts.Add(standards);
                 await _contexts.SaveChangesAsync();
                 return RedirectToAction(nameof(Standard));
@@ -87,7 +90,7 @@ namespace App.Controllers
                 {
                     var standart = _contexts.Standards.Where(_ => _.Id == id).FirstOrDefault();
                     standart.StandardName = standard.StandardName;
-                    _contexts.SaveChanges();
+                     _contexts.SaveChanges();
                     return RedirectToAction("Standard");
                 }
             }
